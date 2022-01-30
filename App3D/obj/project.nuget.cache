@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "LL5Pt0n7ESXnMN8FEUytVWAx2bpw+t/6FVA50zz0Atw2spFYnr+Z6wXM6wGWGgi4d3I0VRkwVLOSOpG5M+oyJg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\grifo\\RiderProjects\\App3D\\App3D\\App3D.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk\\5.0.0-pre.6\\opentk.5.0.0-pre.6.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.compute\\5.0.0-pre.6\\opentk.compute.5.0.0-pre.6.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.core\\5.0.0-pre.6\\opentk.core.5.0.0-pre.6.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.graphics\\5.0.0-pre.6\\opentk.graphics.5.0.0-pre.6.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.input\\5.0.0-pre.6\\opentk.input.5.0.0-pre.6.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.mathematics\\5.0.0-pre.6\\opentk.mathematics.5.0.0-pre.6.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.openal\\5.0.0-pre.6\\opentk.openal.5.0.0-pre.6.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.redist.glfw\\3.3.0-pre20200830200122\\opentk.redist.glfw.3.3.0-pre20200830200122.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.windowing.common\\5.0.0-pre.6\\opentk.windowing.common.5.0.0-pre.6.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.windowing.desktop\\5.0.0-pre.6\\opentk.windowing.desktop.5.0.0-pre.6.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\5.0.0-pre.6\\opentk.windowing.graphicslibraryframework.5.0.0-pre.6.nupkg.sha512"
+  ],
+  "logs": []
+}
