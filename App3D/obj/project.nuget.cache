@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LL5Pt0n7ESXnMN8FEUytVWAx2bpw+t/6FVA50zz0Atw2spFYnr+Z6wXM6wGWGgi4d3I0VRkwVLOSOpG5M+oyJg==",
+  "dgSpecHash": "mjVHbOJr8cm9+fY0DY999j2lbso6skLDPar6SCI7JSSp0qg2/p2FBuH+scJDt98QECwiAWmJBikGyQXSC9ULCQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\grifo\\RiderProjects\\App3D\\App3D\\App3D.csproj",
   "expectedPackageFiles": [
@@ -14,7 +14,8 @@
     "C:\\Users\\grifo\\.nuget\\packages\\opentk.redist.glfw\\3.3.0-pre20200830200122\\opentk.redist.glfw.3.3.0-pre20200830200122.nupkg.sha512",
     "C:\\Users\\grifo\\.nuget\\packages\\opentk.windowing.common\\5.0.0-pre.6\\opentk.windowing.common.5.0.0-pre.6.nupkg.sha512",
     "C:\\Users\\grifo\\.nuget\\packages\\opentk.windowing.desktop\\5.0.0-pre.6\\opentk.windowing.desktop.5.0.0-pre.6.nupkg.sha512",
-    "C:\\Users\\grifo\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\5.0.0-pre.6\\opentk.windowing.graphicslibraryframework.5.0.0-pre.6.nupkg.sha512"
+    "C:\\Users\\grifo\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\5.0.0-pre.6\\opentk.windowing.graphicslibraryframework.5.0.0-pre.6.nupkg.sha512",
+    "C:\\Users\\grifo\\.nuget\\packages\\sixlabors.imagesharp\\1.0.4\\sixlabors.imagesharp.1.0.4.nupkg.sha512"
   ],
   "logs": []
 }
