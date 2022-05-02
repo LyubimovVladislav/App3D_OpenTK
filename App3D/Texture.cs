@@ -15,13 +15,20 @@ public class Texture
 	public Texture(String path)
 	{
 		Handle = GL.GenTexture();
-		Use(path);
+		Use();
+		SetUp(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../", path));
+
 	}
 
-	private void Use(String path)
+	public void Use(TextureUnit unit = TextureUnit.Texture0)
 	{
+		GL.ActiveTexture(unit);
 		GL.BindTexture(TextureTarget.Texture2d, Handle);
+	}
 
+	private void SetUp(String path)
+	{
+		// GL.BindTexture(TextureTarget.Texture2d, Handle);
 		//Load the image
 		Image<Rgba32> image = Image.Load<Rgba32>(path);
 
@@ -65,9 +72,9 @@ public class Texture
 					PixelFormat.Rgba, PixelType.UnsignedByte, ptr);
 			}
 		}
-		
+
 		//Generate mipmaps
-		GL.GenerateMipmap(TextureTarget.Texture2d);
-		// GL.GenerateTextureMipmap(Handle);
+		// GL.GenerateMipmap(TextureTarget.Texture2d);
+		GL.GenerateTextureMipmap(Handle);
 	}
 }

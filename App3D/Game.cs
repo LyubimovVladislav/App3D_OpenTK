@@ -21,14 +21,14 @@ public class Game : GameWindow
 	// 	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom left
 	// 	-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f // top left
 	// };
-	
+
 	float[] _vertices =
 	{
 		//Position          Texture coordinates
-		0.5f,  0.5f, 0.0f, 1.0f, 1.0f, // top right
+		0.5f, 0.5f, 0.0f, 1.0f, 1.0f, // top right
 		0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // bottom right
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
-		-0.5f,  0.5f, 0.0f, 0.0f, 1.0f  // top left
+		-0.5f, 0.5f, 0.0f, 0.0f, 1.0f // top left
 	};
 
 	private readonly uint[] _indices =
@@ -37,7 +37,7 @@ public class Game : GameWindow
 		0, 1, 3, // first triangle
 		1, 2, 3 // second triangle
 	};
-	
+
 	// private float[] _texCoords = {
 	// 	0.0f, 0.0f,  // bottom-left corner  
 	// 	1.0f, 0.0f,  // bottom-right corner
@@ -45,8 +45,10 @@ public class Game : GameWindow
 	// 	1.0f, 1.0f   //top right
 	// };
 
+
 	private Shader _shader = null!;
-	private Texture _texture = null!;
+	private Texture _texture1 = null!;
+	private Texture _texture2 = null!;
 	private BufferHandle _vertexBufferObject;
 	private VertexArrayHandle _vertexArrayObject;
 	private BufferHandle _elementBufferObject;
@@ -65,77 +67,70 @@ public class Game : GameWindow
 
 	protected override void OnUpdateFrame(FrameEventArgs args)
 	{
+		base.OnUpdateFrame(args);
 		if (KeyboardState[Keys.Escape])
 		{
 			Close();
 		}
-
-		base.OnUpdateFrame(args);
 	}
 
 	protected override void OnLoad()
 	{
-		GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		_shader = new Shader("shader.vert", "shader.frag");
-		_vertexBufferObject = GL.GenBuffer();
-		_vertexArrayObject = GL.GenVertexArray();
-		_elementBufferObject = GL.GenBuffer();
+		base.OnLoad();
 
+		GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+		_vertexArrayObject = GL.GenVertexArray();
 		GL.BindVertexArray(_vertexArrayObject);
 
+		_vertexBufferObject = GL.GenBuffer();
 		GL.BindBuffer(BufferTargetARB.ArrayBuffer, _vertexBufferObject);
 		GL.BufferData(BufferTargetARB.ArrayBuffer, _vertices, BufferUsageARB.StaticDraw);
 
+		_elementBufferObject = GL.GenBuffer();
 		GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, _elementBufferObject);
 		GL.BufferData(BufferTargetARB.ElementArrayBuffer, _indices, BufferUsageARB.StaticDraw);
 
-		// GL.VertexAttribPointer(_shader.GetAttribLocation("aPosition"), 3, VertexAttribPointerType.Float, false,
-		// 	3 * sizeof(float), 0);
-		// GL.EnableVertexAttribArray(_shader.GetAttribLocation("aPosition"));
+		_shader = new Shader("shader.vert", "shader.frag");
+		_shader.Use();
 
 		var vertexLocation = _shader.GetAttribLocation("aPosition");
-		GL.VertexAttribPointer(vertexLocation, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
 		GL.EnableVertexAttribArray(vertexLocation);
-		
+		GL.VertexAttribPointer(vertexLocation, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
+
 		var texLocation = _shader.GetAttribLocation("aTexCoord");
 		GL.EnableVertexAttribArray(texLocation);
-		GL.VertexAttribPointer(texLocation, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+		GL.VertexAttribPointer(texLocation, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float),
+			3 * sizeof(float));
 
-		_texture = new Texture(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"../../../Textures/container.jpg"));
-		// int textureLocation = GL.GetUniformLocation(_shader.Handle, "texture0");
-		// GL.Uniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
-		
+		_texture1 = new Texture("Textures/container.jpg");
+		// _texture1.Use(TextureUnit.Texture0);
+		_texture2 = new Texture("Textures/awesomeface.png");
+		// _texture2.Use(TextureUnit.Texture1);
+
+		// This sets the uniform texture1 to use whatever is in texture unit 0, and texture2 to use whatever is in texture unit 1.
+
+		//Before setting up the uniforms MAKE SURE TO "Use" the shader!!!
+		_shader.SetInt("texture1", 0);
+		_shader.SetInt("texture2", 1);
+
 		// _timer.Start();
-
-		base.OnLoad();
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs args)
 	{
-		// render
-		// clear the color buffer
-		GL.Clear(ClearBufferMask.ColorBufferBit);
+		base.OnRenderFrame(args);
 
-		// be sure to activate the shader
+		GL.Clear(ClearBufferMask.ColorBufferBit);
+		GL.BindVertexArray(_vertexArrayObject);
+
+		_texture1.Use(TextureUnit.Texture0);
+		_texture2.Use(TextureUnit.Texture1);
 		_shader.Use();
 
-		// update the uniform color
-		
-		// double timeValue = _timer.Elapsed.TotalSeconds;
-		// float greenValue = (float)Math.Sin(timeValue) / (2.0f + 0.5f);
-		// int vertexColorLocation = GL.GetUniformLocation(_shader.Handle, "ourColor");
-		// GL.Uniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
-
-
-		// now render the triangle
-		GL.BindVertexArray(_vertexArrayObject);
-		// GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 		GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
 
-
-		// swap buffers
 		Context.SwapBuffers();
-		base.OnRenderFrame(args);
 	}
 
 	protected override void OnResize(ResizeEventArgs e)
