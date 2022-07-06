@@ -2,7 +2,7 @@
 using System.Reflection;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
@@ -22,7 +22,7 @@ public class Game : GameWindow
 	// 	-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f // top left
 	// };
 
-	float[] _vertices =
+	private readonly float[] _vertices =
 	{
 		//Position          Texture coordinates
 		0.5f, 0.5f, 0.0f, 1.0f, 1.0f, // top right
@@ -49,9 +49,9 @@ public class Game : GameWindow
 	private Shader _shader = null!;
 	private Texture _texture1 = null!;
 	private Texture _texture2 = null!;
-	private BufferHandle _vertexBufferObject;
-	private VertexArrayHandle _vertexArrayObject;
-	private BufferHandle _elementBufferObject;
+	private int _vertexBufferObject;
+	private int _vertexArrayObject;
+	private int _elementBufferObject;
 	private readonly Stopwatch _timer;
 
 	public Game(int width, int height, string title, double renderFrequency) :
@@ -60,7 +60,7 @@ public class Game : GameWindow
 		)
 	{
 		int nrAttributes = 0;
-		GL.GetInteger(GetPName.MaxVertexAttribs, ref nrAttributes);
+		GL.GetInteger(GetPName.MaxVertexAttribs, out nrAttributes);
 		Console.WriteLine("Maximum number of vertex attributes supported: " + nrAttributes);
 		_timer = new Stopwatch();
 	}
@@ -84,12 +84,12 @@ public class Game : GameWindow
 		GL.BindVertexArray(_vertexArrayObject);
 
 		_vertexBufferObject = GL.GenBuffer();
-		GL.BindBuffer(BufferTargetARB.ArrayBuffer, _vertexBufferObject);
-		GL.BufferData(BufferTargetARB.ArrayBuffer, _vertices, BufferUsageARB.StaticDraw);
+		GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
+		GL.BufferData(BufferTarget.ArrayBuffer,_vertices.Length * sizeof(float), _vertices, BufferUsageHint.StaticDraw);
 
 		_elementBufferObject = GL.GenBuffer();
-		GL.BindBuffer(BufferTargetARB.ElementArrayBuffer, _elementBufferObject);
-		GL.BufferData(BufferTargetARB.ElementArrayBuffer, _indices, BufferUsageARB.StaticDraw);
+		GL.BindBuffer(BufferTarget.ElementArrayBuffer, _elementBufferObject);
+		GL.BufferData(BufferTarget.ElementArrayBuffer,_indices.Length * sizeof(uint), _indices, BufferUsageHint.StaticDraw);
 
 		_shader = new Shader("shader.vert", "shader.frag");
 		_shader.Use();
@@ -118,15 +118,20 @@ public class Game : GameWindow
 		
 		// Make transformation matrix
 		
-		Matrix4d rotation = Matrix4d.RotateZ(MathHelper.RadiansToDegrees(90f));
-		Matrix4d scale = Matrix4d.Scale(0.5f, 0.5f, 0.5f);
-		Matrix4d trans = rotation * scale;
+		Matrix4 rotation = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(90f));
+		Matrix4 scale = Matrix4.CreateScale(0.5f, 0.5f, 0.5f);
+		Matrix4 trans = rotation * scale;
+		
+		// outdated?
+		// Matrix4d rotation = Matrix4d.RotateZ(MathHelper.RadiansToDegrees(90f));
+		// Matrix4d scale = Matrix4d.Scale(0.5f, 0.5f, 0.5f);
+		// Matrix4d trans = rotation * scale;
 		
 		_shader.Use();
 		// Set transformation matrix as uniform
 		int location = GL.GetUniformLocation(_shader.Handle, "transform");
 		Console.WriteLine($"location: {location}");
-		GL.UniformMatrix4d(location, true, in trans);
+		GL.UniformMatrix4(location, true, ref trans);
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 4; j++)
@@ -161,7 +166,7 @@ public class Game : GameWindow
 
 	protected override void OnUnload()
 	{
-		GL.BindBuffer(BufferTargetARB.ArrayBuffer, BufferHandle.Zero);
+		GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 		GL.DeleteBuffer(_vertexBufferObject);
 		_shader.Dispose();
 

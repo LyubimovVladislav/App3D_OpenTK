@@ -1,13 +1,13 @@
 ﻿using System.Text;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
 namespace App3D;
 
 public class Shader : IDisposable
 {
-	public ProgramHandle Handle { get; }
+	public int Handle { get; }
 	private bool _disposedValue = false;
 	// private readonly Dictionary<string, int> _uniformLocations;
 
@@ -19,7 +19,7 @@ public class Shader : IDisposable
 		// They are represented as simple int value
 		int location = GL.GetUniformLocation(Handle, name);
 		
-		GL.Uniform1i(location, value);
+		GL.Uniform1(location, value);
 	}
 
 	public Shader(string vertexPath, string fragmentPath)
@@ -35,10 +35,10 @@ public class Shader : IDisposable
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Generate shaders handles and bind the source code to them
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
-		ShaderHandle vertexShader = GL.CreateShader(ShaderType.VertexShader);
+		int vertexShader = GL.CreateShader(ShaderType.VertexShader);
 		GL.ShaderSource(vertexShader, vertexShaderSource);
 
-		ShaderHandle fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
+		int fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
 		GL.ShaderSource(fragmentShader, fragmentShaderSource);
 
 		

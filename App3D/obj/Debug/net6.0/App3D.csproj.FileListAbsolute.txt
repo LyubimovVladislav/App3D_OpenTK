@@ -2,7 +2,6 @@ C:\Users\grifo\RiderProjects\App3D\App3D\bin\Debug\net6.0\App3D.exe
 C:\Users\grifo\RiderProjects\App3D\App3D\bin\Debug\net6.0\App3D.deps.json
 C:\Users\grifo\RiderProjects\App3D\App3D\bin\Debug\net6.0\App3D.runtimeconfig.json
 C:\Users\grifo\RiderProjects\App3D\App3D\bin\Debug\net6.0\App3D.dll
-C:\Users\grifo\RiderProjects\App3D\App3D\bin\Debug\net6.0\ref\App3D.dll
 C:\Users\grifo\RiderProjects\App3D\App3D\bin\Debug\net6.0\App3D.pdb
 C:\Users\grifo\RiderProjects\App3D\App3D\obj\Debug\net6.0\App3D.csproj.AssemblyReference.cache
 C:\Users\grifo\RiderProjects\App3D\App3D\obj\Debug\net6.0\App3D.GeneratedMSBuildEditorConfig.editorconfig
@@ -30,3 +29,5 @@ C:\Users\grifo\RiderProjects\App3D\App3D\obj\Debug\net6.0\App3D.csproj.CopyCompl
 C:\Users\grifo\RiderProjects\App3D\App3D\bin\Debug\net6.0\shader.frag
 C:\Users\grifo\RiderProjects\App3D\App3D\bin\Debug\net6.0\shader.vert
 C:\Users\grifo\RiderProjects\App3D\App3D\bin\Debug\net6.0\SixLabors.ImageSharp.dll
+C:\Users\grifo\RiderProjects\App3D\App3D\obj\Debug\net6.0\refint\App3D.dll
+C:\Users\grifo\RiderProjects\App3D\App3D\bin\Debug\net6.0\runtimes\osx-arm64\native\libglfw.3.dylib

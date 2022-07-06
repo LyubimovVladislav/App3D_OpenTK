@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -10,7 +10,7 @@ namespace App3D;
 
 public class Texture
 {
-	private TextureHandle Handle { get; }
+	private int Handle { get; }
 
 	public Texture(String path)
 	{
@@ -23,7 +23,7 @@ public class Texture
 	public void Use(TextureUnit unit = TextureUnit.Texture0)
 	{
 		GL.ActiveTexture(unit);
-		GL.BindTexture(TextureTarget.Texture2d, Handle);
+		GL.BindTexture(TextureTarget.Texture2D, Handle);
 	}
 
 	private void SetUp(String path)
@@ -53,14 +53,14 @@ public class Texture
 		}
 
 		//Set wrap mode
-		GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
-		GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
 
 		//Set texture filtering mode
 		// GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
 		// GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
-		GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.LinearMipmapLinear);
-		GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
+		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.LinearMipmapLinear);
+		GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
 
 		//Generate texture
 		unsafe
@@ -68,7 +68,7 @@ public class Texture
 			fixed (byte* p = pixels.ToArray())
 			{
 				IntPtr ptr = (IntPtr)p;
-				GL.TexImage2D(TextureTarget.Texture2d, 0, (int)InternalFormat.Rgba, image.Width, image.Height, 0,
+				GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0,
 					PixelFormat.Rgba, PixelType.UnsignedByte, ptr);
 			}
 		}
