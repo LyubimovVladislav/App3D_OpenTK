@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace App3D;
 

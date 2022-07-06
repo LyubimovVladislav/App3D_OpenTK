@@ -115,6 +115,26 @@ public class Game : GameWindow
 		_shader.SetInt("texture2", 1);
 
 		// _timer.Start();
+		
+		// Make transformation matrix
+		
+		Matrix4d rotation = Matrix4d.RotateZ(MathHelper.RadiansToDegrees(90f));
+		Matrix4d scale = Matrix4d.Scale(0.5f, 0.5f, 0.5f);
+		Matrix4d trans = rotation * scale;
+		
+		_shader.Use();
+		// Set transformation matrix as uniform
+		int location = GL.GetUniformLocation(_shader.Handle, "transform");
+		Console.WriteLine($"location: {location}");
+		GL.UniformMatrix4d(location, true, in trans);
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				Console.Write($"{trans[i, j]} ");
+			}
+			Console.Write("\n");
+		}
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs args)
